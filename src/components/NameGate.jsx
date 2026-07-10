@@ -84,7 +84,7 @@ export default function NameGate({ onUnlock }) {
           )}
 
           {step === 1 && (
-            <AnimatedText key="text2" text="This is just for special person" />
+            <AnimatedText key="text2" text="This is only for someone special" />
           )}
 
           {step === 2 && (
