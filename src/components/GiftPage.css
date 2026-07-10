@@ -1,0 +1,138 @@
+/* Kontainer Fix 1 Viewport */
+.gift-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh; /* Kunci biar ga bisa di-scroll */
+  background-color: #12200E;
+  overflow: hidden; /* Sisa gambar yang keluar layar bakal dipotong */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LAYER 1: Background */
+.layer-bg-gift {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Judul Your Gift */
+.gift-title {
+  position: absolute;
+  top: 10vh;
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: #ffffff;
+  z-index: 2;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Area Kotak Kado */
+.gift-center {
+  position: relative;
+  z-index: 4; /* Di atas cahaya kalau bisa */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.closed-box {
+  width: 45vw; /* Ukuran bisa lu ubah sesuai selera */
+  max-width: 450px;
+  cursor: pointer;
+  z-index: 5;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+}
+
+/* Area Pas Kotak Terbuka */
+.opened-scene {
+  position: relative;
+  width: 45vw;
+  max-width: 450px;
+  height: 45vw;
+  max-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hirono-toy {
+  position: absolute;
+  bottom: 65%;
+  left: 10%;
+  width: 60%;
+  z-index: 9; /* Hirono ada DI BELAKANG bibir depan kotak terbuka */
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
+}
+
+.opened-box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 5; /* Kotak terbukanya nutupin bagian bawah badan Hirono */
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+}
+
+/* LAYER CAHAYA */
+.layer-cahaya-gift {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: auto;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  z-index: 3; /* Cahaya di belakang kado tapi di depan BG */
+  pointer-events: none;
+}
+
+/* ==========================================
+   EFEK CONFETTI (JATUH DARI ATAS)
+   ========================================== */
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 6; /* Nutupin semuanya */
+  pointer-events: none;
+}
+.confetti-piece {
+  position: absolute;
+  width: 12px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   BUTTON CTA
+   ========================================== */
+.cta-message {
+  position: absolute;
+  bottom: 12vh;
+  padding: 12px 35px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50px;
+  backdrop-filter: blur(12px);
+  font-family: 'Caveat', cursive;
+  font-size: 2.5rem;
+  color: #fff;
+  z-index: 8; /* Paling Depan */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+.cta-message:hover {
+  background-color: rgba(28, 160, 11, 0.3);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+}

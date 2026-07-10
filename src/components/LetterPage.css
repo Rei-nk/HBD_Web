@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@500;700&family=Caveat:wght@500&display=swap');
+
+/* Kontainer utama */
+.letter-container {
+  position: relative;
+  width: 100vw;
+  height: 140vh; 
+  background-color: #12200E; 
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #ffffff;
+}
+
+/* ==========================================
+   LAYER 1, TRANSISI, & LAYER 2 (BAGIAN ATAS)
+   ========================================== */
+.layer-tulip-letter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: auto; 
+  object-fit: cover;
+  z-index: 1; 
+}
+
+/* CLASS BARU: Pembatas halus biar nyatu sama warna BG */
+.tulip-transition {
+  position: absolute;
+  top: 97vh; /* Nangkring sedikit di atas garis batas bawah tulip */
+  left: -5vw; /* Sengaja dilebarin biar blurnya ga bocor di pinggiran layar */
+  width: 110vw;
+  height: 16vh; /* Tinggi rectanglenya */
+  background-color: #12200E; /* Warna ijo gelapnya */
+  filter: blur(25px); /* Ini efek blur rectanglenya bre! */
+  z-index: 4; 
+}
+
+.layer-nanad4 {
+  position: absolute;
+  top: 7vh;
+  left: 50%; 
+  height: 95vh; 
+  width: auto;
+  z-index: 3; /* Naik jadi 3 biar ga ketiban efek transisi */
+  object-fit: contain;
+  filter: drop-shadow(-10px 10px 15px rgba(0, 0, 0, 0.4));
+}
+
+/* ==========================================
+   LAYER 3: BUKU (DI TENGAH)
+   ========================================== */
+.book-wrapper {
+  position: absolute;
+  top: 50vh; 
+  left: 70%;
+  transform: translateX(-50%) scale(1.8);
+  width: 90vw;
+  max-width: 1100px;
+  z-index: 4;
+}
+
+.layer-buku {
+  height: auto;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.8));
+}
+
+.page-left {
+  left: 8%; 
+  transform: rotate(-1deg); 
+}
+
+.page-right {
+  right: 8%; 
+  transform: rotate(1deg);
+}
+
+/* ==========================================
+   LAYER 4: NANAD 5 (BAWAH) - KAIN DIHAPUS
+   ========================================== */
+.layer-nanad5 {
+  position: absolute;
+  top: 60vh; 
+  left: 63%; 
+  transform: translateX(-50%);
+  height: 55vh;
+  width: auto;
+  z-index: 5;
+  filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.6));
+}
+
+/* ==========================================
+   CALL TO ACTION (GIFT) & UI
+   ========================================== */
+.cta-gift {
+  position: absolute;
+  top: 110vh;
+  right: 8vw;
+  
+  /* Styling Text */
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem; /* Dikecilin dikit biar proporsional di dalem tombol */
+  color: #ffffff;
+  
+  /* Styling Button Shape */
+  background-color: rgba(59, 82, 43, 0.85); /* Hijau ala daun */
+  padding: 10px 30px;
+  border-radius: 50px;
+  border: 1px solid rgba(167, 255, 156, 0.3); /* Border tipis */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Bayangan biar pop-up */
+  backdrop-filter: blur(10px); /* Efek kaca */
+  
+  z-index: 7; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  /* Biar teks rata tengah di dalem tombol */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-gift:hover {
+  transform: scale(1.05) translateY(-5px); /* Ngambang pas di-hover */
+  background-color: rgba(59, 82, 43, 1);
+  border-color: #cdffc6;
+  color: #a7ff9c;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================
+   RESPONSIVE KHUSUS HP (AMAN TERKENDALI)
+   ========================================== */
+@media screen and (max-width: 768px) {
+  .letter-container {
+    height: 115vh; /* Turunin dari 140vh. Kalau masih kepanjangan, ganti jadi 130vh */
+  }
+
+  .letter-container .layer-nanad4 {
+    height: 30vh;
+    left: 40%;
+    top: -1%;
+    transform: translateX(-50%);
+  }
+
+  .letter-container .tulip-transition {
+    position: absolute;
+    top: 25vh; /* Nangkring sedikit di atas garis batas bawah tulip */
+    left: -5vw; /* Sengaja dilebarin biar blurnya ga bocor di pinggiran layar */
+    width: 110vw;
+    height: 16vh; /* Tinggi rectanglenya */
+    background-color: #12200E; /* Warna ijo gelapnya */
+    filter: blur(25px); /* Ini efek blur rectanglenya bre! */
+}
+
+  .letter-container .book-wrapper {
+    top: 8vh; 
+    left: 35%;
+    width: 95vw;
+    /* Skala 1.8 dari PC dimatiin di sini biar ga luber */
+    transform: translateX(-50%) scale(0.8); 
+  }
+
+  .letter-container .layer-nanad5 {
+    top: 53vh; 
+    left: 9%;
+    height: 35vh;
+    transform: translateX(-50%);
+  }
+
+  .letter-container .cta-gift {
+    top: 85vh; 
+    right: 17%;
+    transform: translateX(50%); 
+    width: max-content; 
+    font-size: 1.5rem;
+  }
+
+  .letter-container .layer-scrolls {
+    bottom: 50px; /* Contoh: mau lu naikin posisinya khusus di letter */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    left: 6.5%;
+    }
+
+  .letter-container .layer-scrolls span {
+    font-size: 1.5rem; /* Contoh: teksnya mau dikecilin khusus di letter */
+  }
+  
+} /* <-- Kurung penutup ini yang biasanya ilang bawa petaka wkwk */

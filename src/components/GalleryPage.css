@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@500;700&family=Caveat:wght@500&display=swap');
+
+/* Kontainer Utama: 1 Viewport, tapi bisa di-scroll ke bawah */
+.gallery-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh; /* Kunci 1 viewport */
+  background-color: #0F321A;
+  overflow-x: hidden;
+  overflow-y: auto; /* Kunci biar bisa di-scroll */
+  color: #ffffff;
+}
+
+/* ==========================================
+   BAGIAN ATAS (JENDELA)
+   ========================================== */
+.window-section {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Penuhi layar pertama buat jendela */
+  display: flex;
+  justify-content: center;
+}
+
+.layer-bg-jendela {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Biar jendelanya menuhin layar proporsional */
+  z-index: 1;
+}
+
+.layer-nanad3 {
+  position: absolute;
+  bottom: -5vh; /* Dipaku di bawah jendela biar kelihatan duduk */
+  left: 25%;
+  transform: translateX(-50%);
+  height: 80vh; /* Atur tinggi Nadia */
+  width: auto;
+  z-index: 2;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+/* Pembatas Blur penengah jendela dan dinding */
+.layer-pembatas {
+  position: absolute;
+  bottom: -10vh; /* Nutupin perbatasan bawah jendela */
+  left: 0;
+  width: 100%;
+  height: 16vh;
+  background-color: #0F321A;
+  filter: blur(25px);
+  z-index: 3;
+}
+
+/* ==========================================
+   BAGIAN BAWAH (WALL / DINDING GALLERY)
+   ========================================== */
+.wall-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* Akan otomatis memanjang sesuai jumlah foto */
+  /* Pakai background CSS biar pattern dindingnya bisa ngulang rapi ke bawah */
+  background-image: url('/src/assets/bg-wall.png');
+  background-size: cover;
+  background-repeat: repeat-y;
+  z-index: 1;
+  padding-top: 15vh; /* Jarak dari jendela ke teks */
+  padding-bottom: 25vh; /* Ruang lega di bawah biar nggak mentok navbar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 4rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 15px rgba(0,0,0,0.8);
+  margin-bottom: 60px;
+  z-index: 4;
+}
+
+/* Grid buat pigura (2 Kolom) */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3vw; /* Jarak antar pigura */
+  width: 90%;
+  max-width: 900px;
+  z-index: 4;
+}
+
+.frame-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4; /* Proporsi standar pigura portrait */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Foto galeri (Ditaruh DI BELAKANG pigura) */
+.layer-glry {
+  position: absolute;
+  width: 70%; /* Sesuaikan % ini kalau foto masih keluar dari pigura */
+  height: 70%;
+  object-fit: cover;
+  z-index: 1;
+  border-radius: 10px;
+}
+
+/* Bingkai Emas (Ditaruh DI DEPAN foto) */
+.layer-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 20px 20px rgba(0, 0, 0, 0.7)); /* Shadow pigura nempel di dinding */
+}
+
+/* ==========================================
+   EFEK CAHAYA (Paling Depan)
+   ========================================== */
+.layer-cahaya-gallery {
+  position: absolute; /* Fixed biar efek cahayanya ngikutin pas di-scroll */
+  bottom: -70vh;
+  left: -15vw;
+  width: 90vw;
+  height: 100vh;
+  z-index: 99; /* Paling depan */
+  pointer-events: none;
+  opacity: 0.7;
+  mix-blend-mode: screen; /* Efek nyatu */
+}
+
+@media screen and (max-width: 768px) {
+  .gallery-container {
+    height: 100vh;
+  }
+
+  /* 1. POTONG TINGGI JENDELA BIAR DINDING LANGSUNG NAIK */
+  .gallery-container .window-section {
+    height: 35vh; /* Nah ini kunci utamanya! Kita potong jadi sepertiga layar aja */
+  }
+
+  .gallery-container .layer-bg-jendela {
+    height: 100%; /* Biar otomatis ngikutin tinggi 35vh di atas */
+    object-fit: cover;
+  }
+
+  /* 2. ATUR ULANG POSISI NADIA & BLUR (Balikin pakai bottom biar presisi) */
+  .gallery-container .layer-nanad3 {
+    top: auto; 
+    bottom: -1vh; /* Jangkar fotonya di batas bawah jendela */
+    height: 30vh; 
+    left: 6vh;
+  }
+
+  .gallery-container .layer-pembatas {
+    top: auto;
+    bottom: -6vh; /* Posisikan ngepas di garis perbatasan */
+    height: 12vh;
+  }
+
+  /* 3. NAIKIN DINDING & RAPIIN GRID GALERI */
+  .gallery-container .wall-section {
+    padding-top: 5vh; /* Jarak dinding ke judul kita deketin */
+    padding-bottom: 20vh; /* Kasih ruang lega buat navbar di bawah */
+  }
+
+  .gallery-container .gallery-title {
+    font-size: 2.8rem; /* Judul dikecilin biar ga terlalu raksasa di HP */
+    margin-bottom: 30px;
+  }
+
+  .gallery-container .gallery-grid {
+    width: 95%; /* Lebarin area gridnya di layar sempit */
+    gap: 4vw;
+    /* Grid tetep 2 kolom, kalau lu mau jadi 1 kolom ganti jadi: repeat(1, 1fr) */
+  }
+
+  .gallery-container .layer-cahaya-gallery {
+    height: 60vh; /* Cahaya disesuaikan biar pas */
+    bottom: -15vh;
+  }
+
+  .gallery-container .layer-scrolls {
+    bottom: 50px; /* Contoh: mau lu naikin posisinya khusus di letter */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    left: 6.5%;
+    }
+
+  .gallery-container .layer-scrolls span {
+    font-size: 1.5rem;
+  }  
+}

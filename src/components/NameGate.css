@@ -1,0 +1,106 @@
+
+
+.gate-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0B1709; /* Layer 1: Base Background */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Layer 2: Pattern Blur (Ganti URL dengan gambar dari laptop lu) */
+.layer-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background-image: url('/src/assets/pattern-blur.png'); 
+  background-size: cover;
+  background-position: center;
+  opacity: 0.6; /* Sesuaikan kalau ketajaman */
+}
+
+/* Layer 3: Bunga Tulip Kanan (Ganti URL dengan gambar tulip lu) */
+/* Layer 3: Bunga Tulip Kanan */
+.layer-tulip {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background-image: url('/src/assets/tulip-right.png');
+  
+  /* --- UKURAN DIGEDEIN DARI SINI --- */
+  /* Angkanya gw naikin dikit biar bunganya lebih nge-zoom */
+  background-size: clamp(350px, 45vw, 700px); 
+  
+  /* --- INI KUNCI BUAT NGEGESER KE KIRI --- */
+  /* X (Horizontal) Y (Vertical) */
+  /* 100% itu mentok kanan. Kalau mau agak ke kiri, turunin angkanya (misal 90%, 85%, atau 80%) */
+  background-position: 100% 70%; 
+  
+  background-repeat: no-repeat;
+  
+  /* (Hapus object-position dan transform: scale karena udah ga dibutuhin lagi) */
+}
+
+/* Layer 4: Overlay Gelap */
+.layer-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background-color: rgba(0, 0, 0, 0.4); /* Efek gelap */
+}
+
+/* Layer 5: Konten Teks & Input */
+.layer-content {
+  position: relative;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.handwriting-text {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: #ffffff;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+/* Styling Inputan Persis Gambar 3 */
+.secret-input {
+  background: transparent;
+  border: 1px solid #7a9c59; /* Warna hijau border */
+  border-radius: 50px;
+  padding: 10px 30px;
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  color: #ffffff;
+  text-align: center;
+  width: 300px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.secret-input:focus {
+  box-shadow: 0 0 15px rgba(122, 156, 89, 0.4);
+  border-color: #9bcc70;
+}
+
+.error-text {
+  font-family: 'Caveat', cursive;
+  color: #ff6b6b;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .gate-container .layer-tulip {
+    background-position: 150% 100%; 
+  }
+}

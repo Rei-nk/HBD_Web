@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@500;700&family=Caveat:wght@500&display=swap');
+
+.landing-container {
+  position: relative;
+  width: 100vw;
+  min-height: 200vh; /* 2 Viewport Penuh */
+  background-color: #12200E;
+  overflow-x: hidden;
+  color: #ffffff;
+}
+
+/* ==========================================
+   UI FIXED (NAVBAR & MUSIK)
+   ========================================== */
+.layer-scrolls {
+  position: fixed;
+  bottom: 30px;
+  left: 40%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  padding: 8px 15px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 9999;
+  pointer-events: auto !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.layer-scrolls span {
+  font-family: 'Caveat', cursive;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 5px 0; 
+  width: 100px; 
+  text-align: center; 
+  border-radius: 40px;
+  border: 1px solid transparent; 
+  transition: all 0.3s ease;
+}
+
+.layer-scrolls span.active {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.layer-icon-music {
+  position: fixed;
+  top: 40px; /* Dipindah ke ATAS */
+  right: 50px; /* Dipindah ke KANAN */
+  width: 40px;
+  height: 40px;
+  z-index: 999; 
+  cursor: pointer;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+}
+
+/* ==========================================
+   VIEWPORT 1 (ATAS) : TULIP & BUKET
+   ========================================== */
+.layer-tulip-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110vh; /* Sengaja dilebihin biar transisi mulus */
+  background-image: url('/src/assets/tulip-bg.png');
+  background-size: cover;
+  background-position: center bottom;
+  z-index: 1;
+}
+
+.layer-bouquet {
+  position: absolute;
+  top: 5vh;
+  right: -15vw; /* Sengaja dipotong */
+  width: 125vw;  
+  max-width: 900px;
+  z-index: 10;
+  filter: drop-shadow(-20px 25px 30px rgba(0, 0, 0, 0.6)); 
+}
+
+/* Blur Transisi */
+.layer-blur-transition {
+  position: absolute;
+  top: 100vh; 
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  background-color: #12200E;
+  filter: blur(25px); 
+  z-index: 4;
+  will-change: filter;
+  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* ==========================================
+   VIEWPORT 2 (BAWAH) : GELAP
+   ========================================== */
+.layer-pattern-1 {
+  position: absolute;
+  top: 70vh;
+  left: -50vh;
+  width: 100%;
+  height: 100vh;
+  background-image: url('/src/assets/pattern 1.png');
+  background-size: cover;
+  opacity: 0.6;
+  z-index: 1; /* Paling Belakang */
+}
+
+.layer-nanad2 {
+  position: absolute;
+  bottom: -3vw; 
+  left: 10vw; 
+  height: 75vh; 
+  width: auto;
+  z-index: 4;
+}
+
+.layer-elemen-dudukan {
+  position: absolute;
+  bottom: -5vh; 
+  right: 23vw; /* Mentok kanan */
+  width: 30vw; 
+  z-index: 5;
+}
+
+.layer-cake {
+  position: absolute;
+  bottom: 1vh; 
+  right: 25vw;
+  width: 25vw;
+  z-index: 7;
+  filter: drop-shadow(0px 20px 15px rgba(0, 0, 0, 0.7)); 
+}
+
+.layer-name {
+  position: absolute;
+  bottom: 55vh; 
+  right: 18vw;
+  font-family: 'Dancing Script', cursive;
+  font-size: 4.5rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 15px rgba(0,0,0,0.8);
+  z-index: 10;
+  white-space: nowrap; /* Paksa 1 baris */
+}
+
+.text-20th {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  color: #ffffff;
+  position: absolute;
+  bottom: 50vh;
+  right: 68vh;
+  z-index: 11;
+}
+
+.layer-pattern-2 {
+  position: absolute;
+  top: 156vh;
+  left: -75vh;
+  width: 100%;
+  height: 50vh;
+  background-image: url('/src/assets/pattern 1.png');
+  background-size: cover;
+  opacity: 0.6;
+  z-index: 12; /* Paling Belakang */
+}
+
+/* Efek Cahaya / Flare */
+.layer-cahaya {
+  position: absolute;
+  bottom: 0;
+  left: -10vw; /* Geser ke kiri biar pendarannya pas di pojok/kaki Nadia */
+  width: 70vw; /* Ukuran dibikin gede sekalian */
+  max-width: 800px;
+  height: auto;
+  z-index: 13; /* Z-index tinggi biar nutupin layer di bawahnya */
+  pointer-events: none; /* Biar cahayanya nggak ngalangin klik mouse lu */
+  opacity: 0.85; /* Atur ketebalan cahayanya di sini (0.1 - 1) */
+  mix-blend-mode: screen; /* INI KUNCI SAKTINYA BRE */
+}
+
+/* ==========================================
+   TAMBAHAN BARU: GLOW LINEAR, TEKS HBD, BALON
+   ========================================== */
+
+/* 1. Efek Glow Linear (Di belakang gambar teks HBD) */
+.glow-effect-hbd {
+  position: absolute;
+  bottom: 50vh; /* Disesuaikan posisinya di atas layer-name lu */
+  left: 60%;
+  transform: translateX(-50%) translateZ(0);
+  width: 70vw; /* Lebar cahayanya */
+  height: 15vh; /* Tinggi cahayanya */
+  /* Linear gradient transparan -> hijau terang -> transparan */
+  background: linear-gradient(to right, rgba(18, 32, 14, 0) 0%, rgba(167, 255, 156, 0.4) 50%, rgba(18, 32, 14, 0) 100%);
+  filter: blur(20px); 
+  z-index: 8; /* Z-index 8: Di atas cake (7), di bawah teks (9) */
+  pointer-events: none;
+  will-change: filter;
+  will-change: filter;
+  transform: translateX(-50%) translate3d(0, 0, 0);
+  
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* 2. Gambar Teks HBD */
+.hbd-text-img {
+  position: absolute;
+  top: -8vh; /* Posisinya agak di atas nama Nadia */
+  left: 10%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 900px;
+  z-index: 9; /* Z-index 9: Biar tepat berada di atas glownya */
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.6));
+}
+
+/* 3. Gambar Balon (Di Samping Cake) */
+.balon-img {
+  position: absolute;
+  bottom: -6vh; /* Nangkring dikit di atas dasar container barengan sama cake */
+  right: 3vw; /* Geser ke kanan cake lu yang ada di 25vw */
+  width: 60vw;
+  max-width: 600px;
+  z-index: 5; /* Z-index 6: Sengaja ditaruh 1 lapis di belakang cake (7) */
+  animation: floatBalon 4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+}
+
+/* Animasi Balon Melayang Natural */
+@keyframes floatBalon {
+  0%, 100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(3deg);
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .landing-container {
+    height : 80vh;
+    min-height: 170vh;
+  }
+
+  .landing-container .layer-bouquet {
+    position: absolute;
+    top: 35vh;
+    right: -17vw; /* Sengaja dipotong */
+    width: 125vw;  
+    max-width: 900px;
+    filter: drop-shadow(-20px 25px 30px rgba(0, 0, 0, 0.6)); 
+  }
+
+  .landing-container .hbd-text-img {
+    top: -1%;
+    left: 5%;
+  }
+
+  .landing-container .layer-nanad2 {
+    top : 85%;
+    height : 40vh;
+  }
+
+  .landing-container .layer-name {
+    top: 77%;
+    left: 16%;
+    font-size: 2rem;
+  }
+
+  .landing-container .glow-effect-hbd{
+    top: 75%;
+    left: 50%;
+    opacity: 0;
+  }
+
+  .landing-container .text-20th{
+    top: 80%;
+    left: 44%;
+    font-size: 1.5rem;
+
+  }
+
+  .landing-container .layer-cahaya {
+    top: 69%;
+
+  }
+
+  .landing-container .layer-cake {
+    top: 96.5%;
+    left: 31%;
+    width: 48%;
+    
+  }
+
+  .landing-container .layer-elemen-dudukan {
+    top: 107.5%;
+    left: 20%;
+    width: 70%;
+  }
+
+  .landing-container .balon-img {
+    top: 93%;
+    left: 50%;
+  }
+
+  .landing-container .layer-pattern-1 {
+    top: 50%;
+    left: 10%;
+  }
+
+  .landing-container .layer-scrolls {
+    bottom: 50px; /* Contoh: mau lu naikin posisinya khusus di letter */
+    left: 6.5%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    }
+
+  .landing-container .layer-scrolls span {
+    font-size: 1.5rem; /* Contoh: teksnya mau dikecilin khusus di letter */
+  }
+
+  .landing-container .layer-pattern-2 {
+    top: 80%;
+    left: 30%;
+  }
+}
