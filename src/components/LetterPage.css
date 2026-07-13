@@ -4,7 +4,7 @@
 .letter-container {
   position: relative;
   width: 100vw;
-  height: 140vh; 
+  height: 150vh; 
   background-color: #12200E; 
   overflow-x: hidden;
   overflow-y: auto;
@@ -14,6 +14,7 @@
 /* ==========================================
    LAYER 1, TRANSISI, & LAYER 2 (BAGIAN ATAS)
    ========================================== */
+
 .layer-tulip-letter {
   position: absolute;
   top: 0;
@@ -22,6 +23,15 @@
   height: auto; 
   object-fit: cover;
   z-index: 1; 
+}
+
+.layer-tulipbawah {
+  position: absolute;
+  bottom: -30vh;
+  object-fit: cover;
+  width: 100vw;
+  height: auto;
+  z-index: 0;
 }
 
 /* CLASS BARU: Pembatas halus biar nyatu sama warna BG */
@@ -36,25 +46,15 @@
   z-index: 4; 
 }
 
-.layer-nanad4 {
-  position: absolute;
-  top: 7vh;
-  left: 50%; 
-  height: 95vh; 
-  width: auto;
-  z-index: 3; /* Naik jadi 3 biar ga ketiban efek transisi */
-  object-fit: contain;
-  filter: drop-shadow(-10px 10px 15px rgba(0, 0, 0, 0.4));
-}
 
 /* ==========================================
    LAYER 3: BUKU (DI TENGAH)
    ========================================== */
 .book-wrapper {
   position: absolute;
-  top: 50vh; 
-  left: 70%;
-  transform: translateX(-50%) scale(1.8);
+  top: 70vh; 
+  left: 53%;
+  transform: translateX(-50%) scale(1.6);
   width: 90vw;
   max-width: 1100px;
   z-index: 4;
@@ -78,17 +78,29 @@
 }
 
 /* ==========================================
-   LAYER 4: NANAD 5 (BAWAH) - KAIN DIHAPUS
+   LAYER 4: NANAD 5 (BAWAH) 
    ========================================== */
+
 .layer-nanad5 {
   position: absolute;
-  top: 60vh; 
+  top: 120vh; 
   left: 63%; 
   transform: translateX(-50%);
   height: 55vh;
   width: auto;
   z-index: 5;
-  filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 1px 20px rgb(252, 251, 215));
+}
+
+.letter-container .layer-pattern-1 {
+  position: absolute;
+  top: 70%;
+  left: 60%;
+  width: 50%;
+  height: 50%;
+  background-image: url('/src/assets/pattern 1.png');
+  opacity: 0.4;
+  z-index: 6; /* Paling Belakang */
 }
 
 /* ==========================================
@@ -96,16 +108,16 @@
    ========================================== */
 .cta-gift {
   position: absolute;
-  top: 110vh;
-  right: 8vw;
+  top: 168vh;
+  right: 11vw;
   
   /* Styling Text */
   font-family: 'Dancing Script', cursive;
   font-size: 2.2rem; /* Dikecilin dikit biar proporsional di dalem tombol */
-  color: #ffffff;
+  color: rgb(155, 189, 64);
   
   /* Styling Button Shape */
-  background-color: rgba(59, 82, 43, 0.85); /* Hijau ala daun */
+  background-color: rgba(0, 0, 0, 0.493); /* Hijau ala daun */
   padding: 10px 30px;
   border-radius: 50px;
   border: 1px solid rgba(167, 255, 156, 0.3); /* Border tipis */
@@ -124,9 +136,9 @@
 
 .cta-gift:hover {
   transform: scale(1.05) translateY(-5px); /* Ngambang pas di-hover */
-  background-color: rgba(59, 82, 43, 1);
+  background-color: rgb(155, 189, 64);
   border-color: #cdffc6;
-  color: #a7ff9c;
+  color: #ffffff;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
 }
 
@@ -138,12 +150,7 @@
     height: 115vh; /* Turunin dari 140vh. Kalau masih kepanjangan, ganti jadi 130vh */
   }
 
-  .letter-container .layer-nanad4 {
-    height: 30vh;
-    left: 40%;
-    top: -1%;
-    transform: translateX(-50%);
-  }
+  
 
   .letter-container .tulip-transition {
     position: absolute;
@@ -152,7 +159,7 @@
     width: 110vw;
     height: 16vh; /* Tinggi rectanglenya */
     background-color: #12200E; /* Warna ijo gelapnya */
-    filter: blur(25px); /* Ini efek blur rectanglenya bre! */
+    filter: blur(25px); 
 }
 
   .letter-container .book-wrapper {
@@ -164,15 +171,15 @@
   }
 
   .letter-container .layer-nanad5 {
-    top: 53vh; 
+    top: 59vh; 
     left: 9%;
     height: 35vh;
     transform: translateX(-50%);
   }
 
   .letter-container .cta-gift {
-    top: 85vh; 
-    right: 17%;
+    top: 90vh; 
+    right: 24%;
     transform: translateX(50%); 
     width: max-content; 
     font-size: 1.5rem;
@@ -190,4 +197,12 @@
     font-size: 1.5rem; /* Contoh: teksnya mau dikecilin khusus di letter */
   }
   
-} /* <-- Kurung penutup ini yang biasanya ilang bawa petaka wkwk */
+  .letter-container .layer-tulipbawah {
+    top: 31%;
+    height: 80vh;
+  }
+
+  .letter-container .layer-pattern-1 {
+    top: 10%;
+  }
+}

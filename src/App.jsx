@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import NameGate from './components/NameGate';
 import LandingPage from './components/LandingPage';
@@ -6,8 +6,23 @@ import GalleryPage from './components/GalleryPage';
 import LetterPage from './components/LetterPage';
 import GiftPage from './components/GiftPage'; 
 import iconMusic from './assets/music-icon.svg';
+
+// ==========================================
+// 1. IMPORT SEMUA LAGU LU DI SINI
+// ==========================================
 import jvkeHer from './assets/jvke-her.mp3';
-import coverMusic from './assets/nanad6.png'; // 👈 Mantap udah pake nanad6
+import oursToKeep from './assets/ours-to-keep.mp3'; // Ganti nama file sesuai yg lu punya
+import enchanted from './assets/enchanted.mp3';     // Ganti nama file
+import thousandYears from './assets/thousand-years.mp3'; // Ganti nama file
+
+// ==========================================
+// 2. IMPORT SEMUA GAMBAR COVER LU DI SINI
+// ==========================================
+import coverHer from './assets/nanad6.png'; // Cover buat lagu Her
+import coverOurs from './assets/cover-ours.png'; // Cover buat Ours to Keep (Ganti path-nya)
+import coverEnchanted from './assets/cover-enchanted.png'; // Cover buat Enchanted
+import coverThousand from './assets/cover-thousand.png'; // Cover buat Thousand Years
+
 import './App.css';
 
 // ==========================================
@@ -25,7 +40,6 @@ const Fireflies = () => {
     }));
   }, []);
 
-  // 👇 INI BAGIAN YANG KEPOTONG DI KODE LU TADI BRE 👇
   return (
     <div className="fireflies-container">
       {fireflies.map((ff) => (
@@ -38,7 +52,6 @@ const Fireflies = () => {
             height: `${ff.size}px`,
           }}
           animate={{
-            // 👇 Ini yang diganti, mulai dari 0 (bawah) meluncur ke -120vh (atas layar)
             y: [0, '-120vh'], 
             x: [0, ff.xOffset, -ff.xOffset, ff.xOffset, 0],
             opacity: [0, 1, 0.8, 0]
@@ -54,14 +67,27 @@ const Fireflies = () => {
   );
 };
 
+// ==========================================
+// DATABASE PLAYLIST LAGU
+// ==========================================
+const playlist = [
+  { title: "JVKE - her", src: jvkeHer, cover: coverHer },
+  { title: "Ours to Keep", src: oursToKeep, cover: coverOurs },
+  { title: "Taylor Swift - Enchanted", src: enchanted, cover: coverEnchanted },
+  { title: "Christina Perri - A Thousand Years", src: thousandYears, cover: coverThousand }
+];
+
 function App() {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [activePage, setActivePage] = useState('Home');
   
   // State Musik & Player
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showPlayer, setShowPlayer] = useState(false); // State buat pop-up
-  const [progress, setProgress] = useState(0); // State buat progress bar
+  const [showPlayer, setShowPlayer] = useState(false); 
+  const [progress, setProgress] = useState(0); 
+  
+  // State buat nyimpen urutan lagu ke-berapa yg lagi muter (mulai dari 0)
+  const [currentSongIndex, setCurrentSongIndex] = useState(0); 
   
   const audioRef = useRef(null);
 
@@ -75,12 +101,30 @@ function App() {
     setIsPlaying(!isPlaying);
   };
 
+  // Fungsi Next Lagu
+  const nextSong = () => {
+    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % playlist.length);
+  };
+
+  // Fungsi Prev Lagu
+  const prevSong = () => {
+    setCurrentSongIndex((prevIndex) => 
+      prevIndex === 0 ? playlist.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Efek ganti lagu otomatis langsung nge-play
+  useEffect(() => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.play().catch(err => console.log("Play interrupted", err));
+    }
+  }, [currentSongIndex, isPlaying]);
+
   // Fungsi buat ngitung detik berjalannya lagu
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       const current = audioRef.current.currentTime;
       const duration = audioRef.current.duration;
-      // Itung persentase progress
       if (duration) {
         setProgress((current / duration) * 100);
       }
@@ -91,21 +135,18 @@ function App() {
     <>
       {/* ==========================================
           PEMUTAR MUSIK GLOBAL
-          onTimeUpdate bakal terus jalan tiap detik lagu muter
+          onEnded bikin otomatis ganti lagu pas abis
           ========================================== */}
       <audio 
         ref={audioRef} 
-        src={jvkeHer} 
-        loop 
+        src={playlist[currentSongIndex].src} // Sumber lagu dinamis ngikutin state
+        onEnded={nextSong} // Kalau lagu abis, panggil fungsi nextSong
         onTimeUpdate={handleTimeUpdate} 
       />
       
       {isUnlocked && <Fireflies />}
       
-      {/* ==========================================
-          TOMBOL ICON MUSIC (Pojok Kanan Atas)
-          Sekarang fungsinya buat buka/tutup Pop-up
-          ========================================== */}
+      {/* TOMBOL ICON MUSIC (Pojok Kanan Atas) */}
       {isUnlocked && (
         <img 
           src={iconMusic} 
@@ -135,25 +176,60 @@ function App() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.9 }}
             transition={{ duration: 0.2 }}
+            style={{
+              /* Gw tambahin styling dasar biar tombolnya langsung berjejer rapi */
+              display: 'flex', flexDirection: 'column', alignItems: 'center'
+            }}
           >
             <div className="player-header">Music</div>
             
-            <img src={coverMusic} alt="Cover Album" className="player-cover" />
+            {/* Gambar Cover Dinamis */}
+            <img 
+              src={playlist[currentSongIndex].cover} 
+              alt="Cover Album" 
+              className="player-cover" 
+              style={{ width: '150px', height: '150px', borderRadius: '15px', objectFit: 'cover', margin: '15px 0' }}
+            />
             
-            <div className="player-title">JVKE - her</div>
+            {/* Judul Dinamis */}
+            <div className="player-title" style={{ fontSize: '1.2rem', marginBottom: '10px' }}>
+              {playlist[currentSongIndex].title}
+            </div>
 
             {/* Progress Bar (Hijau - Abu abu) */}
-            <div className="progress-bar-bg">
+            <div className="progress-bar-bg" style={{ width: '100%', height: '5px', background: '#ccc', borderRadius: '5px', marginBottom: '15px' }}>
               <div 
                 className="progress-bar-fill" 
-                style={{ width: `${progress}%` }} 
+                style={{ width: `${progress}%`, height: '100%', background: '#a7ff9c', borderRadius: '5px' }} 
               ></div>
             </div>
 
-            {/* Tombol Play/Pause */}
-            <button className="play-pause-btn" onClick={togglePlay}>
-              {isPlaying ? '⏸' : '▶'}
-            </button>
+            {/* Tombol Kontrol (Prev, Play/Pause, Next) */}
+            <div className="player-controls" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+              <button 
+                className="control-btn"
+                onClick={prevSong} 
+                style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}
+              >
+                ⏮
+              </button>
+              
+              <button 
+                className="play-pause-btn" 
+                onClick={togglePlay}
+                style={{ background: '#a7ff9c', color: '#000', border: 'none', borderRadius: '50%', width: '45px', height: '45px', fontSize: '1.2rem', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+              >
+                {isPlaying ? '⏸' : '▶'}
+              </button>
+
+              <button 
+                className="control-btn"
+                onClick={nextSong} 
+                style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}
+              >
+                ⏭
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

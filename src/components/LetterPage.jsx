@@ -4,8 +4,8 @@ import './LetterPage.css';
 
 
 // Import Assets Sesuai Layer
+import tulipBawah from '../assets/tulip bawah.png';
 import tulipBgLetter from '../assets/tulip-bg-letter.png';
-import nanad4 from '../assets/nanad4.png';
 import buku from '../assets/buku.png';
 import nanad5 from '../assets/nanad5.png';
 
@@ -33,17 +33,12 @@ export default function LetterPage({ setActivePage }) {
           LAYER 1 & 2: TULIP & NANAD 4
           ========================================== */}
       <img src={tulipBgLetter} className="layer-tulip-letter" alt="Background Tulip" />
+
+      <img src={tulipBawah} className="layer-tulipbawah" alt="Tulip Bawah" />
+
+      <div className="layer-pattern-1"></div>
       
       <div className="tulip-transition"></div>
-
-      <motion.img 
-        src={nanad4} 
-        className="layer-nanad4" 
-        alt="Nadia 4"
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.2, delay: 0.3 }}
-      />
 
       {/* ==========================================
           LAYER 3: BUKU BESERTA TEKS SURATNYA
@@ -102,7 +97,7 @@ export default function LetterPage({ setActivePage }) {
         viewport={{ once: true }}
         transition={{ duration: 1, delay: 0.8 }}
       >
-        Let see ur gift honey &gt;&gt;
+        Ur gift honey !
       </motion.div>
 
     </div>
