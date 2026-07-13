@@ -171,64 +171,72 @@ function App() {
       <AnimatePresence>
         {showPlayer && (
           <motion.div 
-            className="music-player-overlay"
+            className="music-player-wrapper" 
             initial={{ opacity: 0, y: -20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            style={{
-              /* Gw tambahin styling dasar biar tombolnya langsung berjejer rapi */
-              display: 'flex', flexDirection: 'column', alignItems: 'center'
+            style={{ 
+              position: 'fixed', 
+              top: '9vh', 
+              right: '5vw', 
+              zIndex: 10000 
             }}
           >
-            <div className="player-header">Music</div>
-            
-            {/* Gambar Cover Dinamis */}
-            <img 
-              src={playlist[currentSongIndex].cover} 
-              alt="Cover Album" 
-              className="player-cover" 
-              style={{ width: '150px', height: '150px', borderRadius: '15px', objectFit: 'cover', margin: '15px 0' }}
-            />
-            
-            {/* Judul Dinamis */}
-            <div className="player-title" style={{ fontSize: '1.2rem', marginBottom: '10px' }}>
-              {playlist[currentSongIndex].title}
-            </div>
-
-            {/* Progress Bar (Hijau - Abu abu) */}
-            <div className="progress-bar-bg" style={{ width: '100%', height: '5px', background: '#ccc', borderRadius: '5px', marginBottom: '15px' }}>
-              <div 
-                className="progress-bar-fill" 
-                style={{ width: `${progress}%`, height: '100%', background: '#a7ff9c', borderRadius: '5px' }} 
-              ></div>
-            </div>
-
-            {/* Tombol Kontrol (Prev, Play/Pause, Next) */}
-            <div className="player-controls" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-              <button 
-                className="control-btn"
-                onClick={prevSong} 
-                style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}
-              >
-                ⏮
-              </button>
+            {/* 👇 KOTAK KACA DIBUKA (JANGAN DITUTUP DULU) 👇 */}
+            <div className="music-player-overlay">
               
-              <button 
-                className="play-pause-btn" 
-                onClick={togglePlay}
-                style={{ background: '#a7ff9c', color: '#000', border: 'none', borderRadius: '50%', width: '45px', height: '45px', fontSize: '1.2rem', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-              >
-                {isPlaying ? '⏸' : '▶'}
-              </button>
+              <div className="player-header">Music</div>
+              
+              {/* Gambar Cover Dinamis */}
+              <img 
+                src={playlist[currentSongIndex].cover} 
+                alt="Cover Album" 
+                className="player-cover" 
+                style={{ width: '150px', height: '150px', borderRadius: '15px', objectFit: 'cover', margin: '15px 0' }}
+              />
+              
+              {/* Judul Dinamis */}
+              <div className="player-title" style={{ fontSize: '1.2rem', marginBottom: '10px' }}>
+                {playlist[currentSongIndex].title}
+              </div>
 
-              <button 
-                className="control-btn"
-                onClick={nextSong} 
-                style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}
-              >
-                ⏭
-              </button>
+              {/* Progress Bar (Hijau - Abu abu) */}
+              <div className="progress-bar-bg" style={{ width: '100%', height: '5px', background: '#ccc', borderRadius: '5px', marginBottom: '15px' }}>
+                <div 
+                  className="progress-bar-fill" 
+                  style={{ width: `${progress}%`, height: '100%', background: '#a7ff9c', borderRadius: '5px' }} 
+                ></div>
+              </div>
+
+              {/* Tombol Kontrol (Prev, Play/Pause, Next) */}
+              <div className="player-controls" style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                <button 
+                  className="control-btn"
+                  onClick={prevSong} 
+                  style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}
+                >
+                  ⏮
+                </button>
+                
+                <button 
+                  className="play-pause-btn" 
+                  onClick={togglePlay}
+                  style={{ background: '#a7ff9c', color: '#000', border: 'none', borderRadius: '50%', width: '45px', height: '45px', fontSize: '1.2rem', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                >
+                  {isPlaying ? '⏸' : '▶'}
+                </button>
+
+                <button 
+                  className="control-btn"
+                  onClick={nextSong} 
+                  style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.5rem', cursor: 'pointer' }}
+                >
+                  ⏭
+                </button>
+              </div>
+
+            {/* 👇 KOTAK KACA BARU DITUTUP DI SINI BRE! 👇 */}
             </div>
           </motion.div>
         )}
